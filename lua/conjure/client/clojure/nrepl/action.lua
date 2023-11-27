@@ -301,8 +301,6 @@ local function def_str(opts)
           return (_241 .. "/" .. opts.code)
         end
         return log.append(a.concat({"; Multiple candidates found"}, a.map(_56_, a.keys(info.candidates))))
-      elseif info.javadoc then
-        return log.append({"; Can't open source, it's Java", ("; " .. info.javadoc)})
       elseif info["special-form"] then
         local function _57_()
           if info.url then
@@ -317,6 +315,8 @@ local function def_str(opts)
         local path = nrepl__3envim_path(info.file)
         editor["go-to"](path, info.line, column)
         return log.append({("; " .. path .. " [" .. info.line .. " " .. column .. "]")}, {["suppress-hud?"] = true})
+      elseif info.javadoc then
+        return log.append({"; Can't open source, it's Java", ("; " .. info.javadoc)})
       else
         return log.append({"; Unsupported target", ("; " .. a["pr-str"](info))})
       end

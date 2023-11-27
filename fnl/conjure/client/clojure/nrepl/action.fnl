@@ -213,10 +213,6 @@
                 ["; Multiple candidates found"]
                 (a.map #(.. $1 "/" opts.code) (a.keys info.candidates))))
 
-            info.javadoc
-            (log.append ["; Can't open source, it's Java"
-                         (.. "; " info.javadoc)])
-
             info.special-form
             (log.append ["; Can't open source, it's a special form"
                          (when info.url (.. "; " info.url))])
@@ -227,6 +223,11 @@
               (editor.go-to path info.line column)
               (log.append [(.. "; " path " [" info.line " " column "]")]
                           {:suppress-hud? true}))
+
+            info.javadoc
+            (log.append ["; Can't open source, it's Java"
+                         (.. "; " info.javadoc)])
+
 
             (log.append ["; Unsupported target"
                          (.. "; " (a.pr-str info))])))))))
@@ -609,7 +610,7 @@
            " "
            [ns
             (when arglists
-              (str.join " " arglists ))])
+              (str.join " " arglists))])
    :info (when (= :string (type info))
            info)
    :kind (when (not (a.empty? kind))
